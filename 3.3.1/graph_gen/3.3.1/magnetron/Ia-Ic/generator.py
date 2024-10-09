@@ -18,94 +18,94 @@ csv_files = glob.glob(os.path.join(data_dir, '*.csv'))
 
 # Функция для линейной аппроксимации
 def linear_func(x, a, b):
-    return a * x + b
+	return a * x + b
 
 # Обрабатываем каждый CSV-файл
 for file_path in csv_files:
-    # Извлекаем имя файла без расширения
-    file_name = os.path.splitext(os.path.basename(file_path))[0]
+	# Извлекаем имя файла без расширения
+	file_name = os.path.splitext(os.path.basename(file_path))[0]
 
-    # Чтение данных из CSV-файла
-    data = pd.read_csv(file_path, sep=';', decimal=',')
+	# Чтение данных из CSV-файла
+	data = pd.read_csv(file_path, sep=';', decimal=',')
 
-    # Проверка названий колонок
-    print(f"Обрабатываю файл: {file_name}")
-    print(data.columns)
+	# Проверка названий колонок
+	print(f"Обрабатываю файл: {file_name}")
+	print(data.columns)
 
-    x_label    = "B, мT"
-    xerr_label = "\sigma_B, мТ"
-    y_label    = "I_a, мкА"
-    yerr_label = "\sigma_{I_a}, мкА"
+	x_label	= "B, мT"
+	xerr_label = "\sigma_B, мТ"
+	y_label	= "I_a, мкА"
+	yerr_label = "\sigma_{I_a}, мкА"
 
-    # Значения x и y
-    x_data = data[x_label]
-    y_data = data[y_label]
+	# Значения x и y
+	x_data = data[x_label]
+	y_data = data[y_label]
 
-    if yerr_label in data.columns:
-        print("found y errors")
-        y_err = data[yerr_label]
-        for elem in y_err:
-            print(y_err)
-    else:
-        y_err = 666
+	if yerr_label in data.columns:
+		print("found y errors")
+		y_err = data[yerr_label]
+		for elem in y_err:
+			print(y_err)
+	else:
+		y_err = 666
 
-    if xerr_label in data.columns:
-        print("found x errors:")
-        x_err = data[xerr_label]
-        for elem in x_err:
-            print(x_err)
-    else:
-        x_err = 666
+	if xerr_label in data.columns:
+		print("found x errors:")
+		x_err = data[xerr_label]
+		for elem in x_err:
+			print(x_err)
+	else:
+		x_err = 666
 
-    # Аппроксимация данных методом наименьших квадратов
-    params, params_covariance = curve_fit(linear_func, x_data, y_data)
+	# Аппроксимация данных методом наименьших квадратов
+	params, params_covariance = curve_fit(linear_func, x_data, y_data)
 
-    # Построение графика с погрешностями
-    plt.errorbar(	x_data
-                 	, y_data
-                    , yerr=y_err
-                    , xerr=x_err
-                    , fmt=''
-                    , label='Данные'
-                    , color='red'
-                    , ecolor='black'
-                    , elinewidth=1
-                    , capsize=1
-                    , markersize=5
-                    , markeredgewidth=1
-                    , linestyle='none')
+	# Построение графика с погрешностями
+	plt.errorbar(	x_data
+				 	, y_data
+					, yerr=y_err
+					, xerr=x_err
+					, fmt=''
+					, label='Данные'
+					, color='red'
+					, ecolor='black'
+					, elinewidth=1
+					, capsize=1
+					, markersize=5
+					, markeredgewidth=1
+					, linestyle='none')
 
-    # Построение линии аппроксимации
-    # plt.plot(x_data, linear_func(x_data, params[0], params[1]), label='Аппроксимация', color='blue')
+	# Построение линии аппроксимации
+	# plt.plot(x_data, linear_func(x_data, params[0], params[1]), label='Аппроксимация', color='blue')
 
-    # Настройка осей: график начинается с нуля
-    plt.xlim(left=0)
-    plt.ylim(bottom=0)
+	# Настройка осей: график начинается с нуля
+	plt.xlim(left=0)
+	plt.ylim(bottom=0)
 
-    # Настройка меток на осях
-    plt.gca().xaxis.set_major_locator(MultipleLocator(1))   # Основные метки через 1 единицу по оси X
-    plt.gca().xaxis.set_minor_locator(AutoMinorLocator(4))  # Дополнительные метки (4 на каждый интервал)
+	# Настройка меток на осях
+	plt.gca().xaxis.set_major_locator(MultipleLocator(1))   # Основные метки через 1 единицу по оси X
+	plt.gca().xaxis.set_minor_locator(AutoMinorLocator(4))  # Дополнительные метки (4 на каждый интервал)
 
-    plt.gca().yaxis.set_major_locator(MultipleLocator(100)) # Основные метки через 100 единиц по оси Y
-    plt.gca().yaxis.set_minor_locator(AutoMinorLocator(4))  # Дополнительные метки (4 на каждый интервал)
+	plt.gca().yaxis.set_major_locator(MultipleLocator(100)) # Основные метки через 100 единиц по оси Y
+	plt.gca().yaxis.set_minor_locator(AutoMinorLocator(4))  # Дополнительные метки (4 на каждый интервал)
 
-    # Включаем минорные деления
-    plt.minorticks_on()
+	# Включаем минорные деления
+	plt.minorticks_on()
 
-    # Добавление мелкой сетки для основных и дополнительных меток
-    plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+	# Добавление мелкой сетки для основных и дополнительных меток
+	plt.grid(True, which='both', linestyle='--', linewidth=0.5)
 
-    # Оформление графика
-    plt.xlabel('$'+x_label+'$')
-    plt.ylabel('$'+y_label+'$')
-    # plt.legend()
+	# Оформление графика
+	plt.xlabel('$'+x_label+'$')
+	plt.ylabel('$'+y_label+'$')
+	# plt.legend()
 
-    # Сохранение графика в файл с таким же названием, как у CSV-файла
-    output_file = f"{output_dir}/{file_name}.png"
-    plt.savefig(output_file)
+	# Сохранение графика в файл с таким же названием, как у CSV-файла
+	output_file = f"{output_dir}/{file_name}.png"
+	plt.savefig(output_file)
 
-    # Очистка текущей фигуры для построения следующего графика
-    plt.clf()
+	# Очистка текущей фигуры для построения следующего графика
+	plt.clf()
 
-    # Выводим сообщение о сохранении графика
-    print(f"График для {file_name} сохранён как: {output_file}")
+	# Выводим сообщение о сохранении графика
+	print(f"График для {file_name} сохранён как: {output_file}")
