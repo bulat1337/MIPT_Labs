@@ -60,7 +60,8 @@ else:
         # plt.plot(x_fit, y_fit, label=f'Fit {file_name}', color=f'C{i}', linestyle='--')
 
     # Set up the axis with ticks and minor grid
-    plt.gca().xaxis.set_major_locator(MultipleLocator(0.1))
+    
+    plt.gca().xaxis.set_major_locator(MultipleLocator(0.02))
     plt.gca().xaxis.set_minor_locator(AutoMinorLocator(5))
     plt.gca().yaxis.set_major_locator(MultipleLocator(0.1))
     plt.gca().yaxis.set_minor_locator(AutoMinorLocator(5))
