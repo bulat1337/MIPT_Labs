@@ -56,7 +56,7 @@ else:
 			yerr=y_err, xerr=x_err,
 			fmt='o', label=f'{file_name}', color=f'C{i}',
 			ecolor='black', elinewidth=0.5, capsize=2,
-			markersize=5, markeredgewidth=1, markerfacecolor='none'
+			markersize=3, markeredgewidth=1, markerfacecolor='none'
 		)
 
 		# Plotting the fitted line
