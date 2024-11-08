@@ -1,0 +1,131 @@
+\documentclass[a4paper, 12pt]{article}%тип документа
+
+%отступы
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=3cm,bindingoffset=0cm]{geometry}
+
+%Русский язык
+\usepackage[T2A]{fontenc} %кодировка
+\usepackage[utf8]{inputenc} %кодировка исходного кода
+\usepackage[english,russian]{babel} %локализация и переносы
+
+%Вставка картинок
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\graphicspath{{pictures/}}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\usepackage{caption}
+\usepackage{float}
+
+
+
+
+%оглавление
+\usepackage{titlesec}
+\titlespacing{\chapter}{0pt}{-30pt}{12pt}
+\titlespacing{\section}{\parindent}{5mm}{5mm}
+\titlespacing{\section}{\parindent}{5mm}{5mm}
+\usepackage{setspace}
+
+%Графики
+\usepackage{multirow}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+
+%Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+
+%Заголовок
+\author{Мотыгуллин Булат}
+
+\title{\textbf{Работа 3.7.3\\
+Длинные Линии}}
+
+\date{}
+
+\begin{document}
+
+\maketitle
+
+
+\section*{Цель работы}
+Ознакомится и проверить на практике теорию распространения
+электрических сигналов вдоль длинной линии; измерить амплитудо- и фазово-частотные
+характеристики коаксиальной линии; определить погонные характеристики такой
+линии; на примере модели длинной линии изучить вопрос распределения амплитуды
+колебаний сигнала по длине линии.
+
+\section*{Эксперементальная установка}
+\begin{wrapfigure}{l}{0.5\textwidth}
+  \begin{center}
+    \includegraphics[width = 0.5\textwidth]{setup.png}
+  \end{center}
+  \textbf{\caption{Схема установки.}}
+\end{wrapfigure}
+
+Oодин конец коаксиального кабеля с
+помощью "тройника" подключен к выходу
+"1" генератора и ко входу CH1 осциллографа
+(для соединения тройника с генератором
+использован короткий коаксиальный кабель;
+тройник напрямую подключен к
+осциллографу, чтобы сдвиг фазы сигнала на
+входе в осциллограф и в начале "длинной
+линии" был минимален);
+
+Второй конец кабеля "длинной
+линии" подключен ко входу CH2
+осциллографа.
+
+\section*{Формулы}
+
+\begin{align*}
+    V_{\text{ф}} &= \frac{f_0}{n} l & \quad L_xC_x &= \frac{c^2}{{V_{\text{ф}}}^2} \\
+    L_x &= cR_0\sqrt{L_xC_x} & \quad C_x &= \frac{\sqrt{L_xC_x}}{cR_0} \\
+   \varepsilon &= 2Cln\left(\frac{r_2}{r_1}\right) & \quad \mu &= \frac{L}{2ln\left(\frac{r_2}{r_1}\right)} \\
+    \sigma &= \left( \frac{2C_xV_{\text{ф}}}{c \cdot d \cdot \frac{\alpha}{\sqrt{f}}} \right)^2 & \quad ... &= ...
+\end{align*}
+
+
+
+\section*{Результаты}
+
+\begin{figure}[H]
+    \captionsetup{position=above, skip=2pt}
+    \centering
+    \caption{Зависимость резонансной частоты от n.}
+    \includegraphics[width=0.9\textwidth]{f-n(sin_norm).png}
+\end{figure}
+
+Погонные характеристики кабеля:
+
+$$ C_x = (1,00 \pm 0,01) \text{ед. СГС} $$
+
+$$ L_x = (2,25 \pm 0,02) \text{ед. СГС} $$
+
+Диэлектрическая проницаемость:
+
+$$ \varepsilon = 2,25 \pm 0,29 $$
+
+Магнитная восприимчивость:
+
+$$ \mu = 0,99 \pm 0,13 $$
+
+
+\begin{figure}[H]
+    \captionsetup{position=above, skip=2pt}
+    \centering
+    \caption{Зависимо
+сть декремента затухания частоты от от корня частоты гармонического сигнала.}
+    \includegraphics[width=0.9\textwidth]{alpha-sqrt(f).png}
+\end{figure}
+
+Удельная проводимость провода:
+
+$$ \sigma = (6,34 \pm 0,23) \text{ед.СГС} $$
+
+\section*{Вывод}
+
+Фазовые скорости в условиях согласованной нагрузки и при отсутствии нагрузки совпадают, как и результаты для синусоидального и прямоугольного сигналов. Характеристики кабеля были получены с высокой точностью. График зависимости декремента затухания от квадратного корня частоты показал искажения на малых и больших частотах, что является допустимым для измерений вблизи граничных значений частот.
+
+
+\end{document}
